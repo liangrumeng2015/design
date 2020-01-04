@@ -1,0 +1,30 @@
+<template>
+<!-- 搜索组件 -->
+    <div>
+       <van-search
+    v-model="searchVal"
+    placeholder="请输入搜索关键词"
+    show-action
+    @search="onSearch"
+    @cancel="onCancel"
+  /> 
+    </div>
+</template>
+<script>
+export default {
+    data(){
+        return{
+            msg:'',
+            searchVal:''
+        }
+    },
+    methods:{
+        onSearch(){
+            console.log('搜索')
+        },
+        onCancel(){
+            console.log('取消搜索')
+        }
+    }
+}
+</script>

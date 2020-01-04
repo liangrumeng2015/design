@@ -19,21 +19,15 @@ export default {
           path: "/tab1"
         },
         {
-          icon: "search",
-          info: "2",
-          msg: "消息",
-          path: "/tab2"
-        },
-        {
           icon: "friends-o",
           info: "",
-          msg: "笔记",
+          msg: "功能",
           path: "/tab3"
         },
         {
           icon: "setting-o",
           info: "",
-          msg: "我",
+          msg: "我的",
           path: "/tab4"
         }
       ]

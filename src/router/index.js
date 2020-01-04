@@ -31,12 +31,29 @@ const routes = [
         component: () => import('../views/TabBar/Tab4.vue')
       },
     ]
-  },{
+  },
+  {
     path:'/searchpage',
     name:'searchpage',
     component:()=>import('../views/SearchPage')
+  },
+  {
+    path:'/copy',
+    name:'copy',
+    component:()=>import('../views/pages/Copy')
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:()=>import('../views/Login')
   }
 ]
+// 重写路由的push方法
+ 
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
 
 const router = new VueRouter({
   routes

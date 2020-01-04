@@ -1,46 +1,28 @@
 <template>
   <div class="tab1">
     <!-- 搜索框 -->
-    <div>
-      <input type="text" readonly placeholder="找资料" class="search_input" @click="focusFn" />
-    </div>
-    <!-- 课程icon  -->
-    <v-IconItem :dataItem="dataItem" />
-
-    <v-TitleBar leftMsg="最近使用" iconName="arrow" rightMsg="" />
-    <v-ThreeRowCard :CardData="CardData" :button="true" />
-
+    <v-Search />
+    <!-- 轮播图 -->
+    <v-Swipe />
+    <!-- 常用 -->
+    <v-TitleBar leftMsg="常用" iconName="arrow" rightMsg=""  />
+    <v-ThreeRowCard :CardData="CardData" :button="true" btnMsg="取消常用" />
+    <!-- 推荐 -->
     <v-TitleBar leftMsg="推荐" iconName="exchange" rightMsg="换一换" />
-    <v-ThreeRowCard :CardData="CardData" />
-
+    <v-ThreeRowCard :CardData="CardData" :button="true" btnMsg="+常用"/>
   </div>
 </template>
 <script>
 import IconItem from "../../components/IconItem";
 import TitleBar from "../../components/TitleBar";
 import ThreeRowCard from "../../components/ThreeRowCard";
+import Search from '../../components/Search';
+import Swipe from '../../components/Swipe';
 export default {
   data() {
     return {
       msg: "123",
       value: "",
-      dataItem: [
-        {
-          icon: "description",
-          txt: "课程",
-          color: "#09bc9f"
-        },
-        {
-          icon: "send-gift-o",
-          txt: "资源",
-          color: "#ffb608"
-        },
-        {
-          icon: "apps-o",
-          txt: "微应用",
-          color: "#ff6f5e"
-        }
-      ],
       CardData: [
         {
           imgsrc: "http://placehold.it/100",
@@ -51,9 +33,10 @@ export default {
     };
   },
   components: {
-    "v-IconItem": IconItem,
     "v-TitleBar": TitleBar,
-    "v-ThreeRowCard": ThreeRowCard
+    "v-ThreeRowCard": ThreeRowCard,
+    "v-Search":Search,
+    "v-Swipe":Swipe
   },
   methods: {
     focusFn() {
@@ -68,6 +51,7 @@ export default {
 <style lang="stylus" scoped>
 .tab1 {
    padding: 20px 0;
+   min-height 100vh;
 }
 .search_input {
   border: none;
