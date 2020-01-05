@@ -4,12 +4,13 @@
         <v-Avatar :bgImg="bgImg" :avatar="avatar" />
         @params  bgImg  顶部背景图
         @params  avatar  用户头像图
+        @params  title   标题
  -->
     <div class="info_top">
         <img class="bg_img" :src="bgImg" v-if="bgImg" />
         <div class="bg_avatar">
             <img :src="avatar" v-if="avatar" />
-            <p>xxxx辅助系统</p>
+            <p>{{title}}</p>
         </div>
     </div>
 </template>
@@ -20,6 +21,9 @@ export default {
             type:String
         },
         avatar:{
+            type:String
+        },
+        title:{
             type:String
         }
     }

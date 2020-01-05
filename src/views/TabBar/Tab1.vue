@@ -38,6 +38,13 @@ export default {
     "v-Search":Search,
     "v-Swipe":Swipe
   },
+  created(){
+    if(!JSON.parse(this.$cookie.get('userInfo'))){
+      this.$router.push({path:'/login'})
+    }else{
+      console.log(JSON.parse(this.$cookie.get('userInfo')));
+    }
+  },
   methods: {
     focusFn() {
       setTimeout(() => {

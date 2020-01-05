@@ -5,9 +5,9 @@
       <h3>辅助教学系统</h3>
       <div>
         <van-radio-group v-model="radioStatus" @change="changeFn">
-          <van-radio name="1" checked-color="#07c160">管理员</van-radio>
-          <van-radio name="2" checked-color="#07c160">教师</van-radio>
-          <van-radio name="3" checked-color="#07c160">学生</van-radio>
+          <van-radio name="2" checked-color="#07c160">管理员</van-radio>
+          <van-radio name="1" checked-color="#07c160">教师</van-radio>
+          <van-radio name="0" checked-color="#07c160">学生</van-radio>
         </van-radio-group>
       </div>
       <div class="form_part">
@@ -36,32 +36,47 @@
 <script>
 var that;
 import {reqLogin} from '../config/api';
+import {DELAYTIME} from '../config/constant'
 export default {
   data() {
     return {
       msg: "",
       username: "",
       password: "",
-      radioStatus:0
+      radioStatus:''
     };
+  },
+  created(){
+    this.$cookie.delete('userInfo')
   },
   methods: {
     changeFn(name) {
       console.log(name);
       this.radioStatus = name;
     },
-    toLoginFn() {
+    async toLoginFn() {
       that = this;
       const { username, password,radioStatus } = that;
-      if (username != "" && password != "" && radioStatus !=0) {
-        // 请求接口
+      if (username != "" && password != "" && radioStatus !='') {
         var params = {
           stuNumber:username,
           password,
-          radioStatus
+          roleId:radioStatus
         };
-        var result = reqLogin(params);
-        console.log(result);
+        const {msg,userName,userId,status} = await reqLogin(params);
+        if(status == -1){
+          that.$toast({
+            message:msg
+          })
+        }else if(status == 1){
+          that.$toast({
+            message:msg
+          })
+          setTimeout(()=>{
+            that.$router.push({path:'/'})
+          },DELAYTIME)
+          that.$cookie.set('userInfo',JSON.stringify({userId,userName}))
+        }
       }else{
           if(password == ''){
               that.$toast({
@@ -75,7 +90,7 @@ export default {
                   position:'center'
               })
           }
-          if(radioStatus == 0){
+          if(radioStatus == ''){
               that.$toast({
                   message:'请选择角色',
                   position:'center'

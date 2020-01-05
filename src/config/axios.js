@@ -3,6 +3,9 @@
  */
  import axios from 'axios';
  import qs from 'qs';
+ import Vue from 'vue'
+ import {Toast} from 'vant'
+ Vue.use(Toast)
 
 function Axios(url,data={},method = 'get'){
     var that = this;
@@ -15,10 +18,14 @@ function Axios(url,data={},method = 'get'){
         }else{
             promise = axios.post(url,qs.stringify(data))
         }
+        Toast.loading({
+            message:'加载中...',
+        })
         promise.then((res)=>{
+            Toast.clear()
             resolve(res.data);
         }).catch((error)=>{
-            console.log('请求失败')
+            Toast(error.message)
         })
     })
 }
