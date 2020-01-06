@@ -17,7 +17,7 @@ function Axios(url,data={},method = 'get'){
         }else{
             promise = axios.post(url,qs.stringify(data))
         }
-
+        
         promise.then(res=>{
             resolve(res.data)
         }).catch(error=>{

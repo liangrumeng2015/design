@@ -8,13 +8,26 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    children:[
+      {
+        path: '/grade',
+        name: 'grade',
+        component: () => import('../views/Grade.vue')
+      },
+      {
+        path: '/timetable',
+        name: 'timetable',
+        component: () => import('../views/TimeTable.vue')
+      },
+      {
+        path: '/usermanagement',
+        name: 'usermanagement',
+        component: () =>import('../views/UserManagement.vue')
+      }
+    ]
   },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
-  },
+  
   {
     path: '/login',
     name: 'login',

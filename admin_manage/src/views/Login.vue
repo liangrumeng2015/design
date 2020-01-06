@@ -108,7 +108,6 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
-  box-shadow: 2px 2px 10px #e9e8e8;
   .avatar_box {
     position: absolute;
     left: 50%;
