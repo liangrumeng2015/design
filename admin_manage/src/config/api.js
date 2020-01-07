@@ -1,8 +1,8 @@
 /**
- * 所有接口的api
+ * 所有接口的api   1  男   0  女
  */
 import Axios from './axios'
-const httpURL = '/api'
+const httpURL = '/wypapi'
 
 /**登录接口
  * @param {stuNumber} 账号
@@ -16,7 +16,7 @@ export const reqLogin = (data) => Axios(httpURL + '/teachtool/login/loginstate',
  * 用户信息全量查询
  * 
  */
-export const reqFindUserAll = () => Axios(httpURL + '/teachtool/userinfo/findUserAll',{},'post')
+export const reqFindUserAll = (data) => Axios(httpURL + '/teachtool/userinfo/findUserAll',data,'post')
 
 /**
  * 用户信息模糊查询带分页
@@ -72,3 +72,14 @@ export const reqUpdateUser = (data) => Axios(httpURL + '/teachtool/userinfo/upda
 export const reqDeleteUser = (data) => Axios(httpURL + '/teachtool/userinfo/deleteUserById',data,'post')
 
 
+/**
+ * 查询所有专业
+ * 无参数
+ */
+export const reqFindMajorAll = (data) => Axios(httpURL + '/teachtool/major/findMajorAll',data,'post')
+
+/**
+ * 查询班级
+ * @params {majorId}
+ */
+export const reqFindMajorById = (data) => Axios(httpURL + '/teachtool/major/findMajorById',data,'post');

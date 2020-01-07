@@ -22,11 +22,6 @@ function Axios(url,data={},method = 'get'){
             resolve(res.data)
         }).catch(error=>{
             console.log('请求失败')
-            Message({
-                message:msg,
-                type:'error',
-                duration:DURATION
-            })
         })
     })
 }

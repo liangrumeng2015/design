@@ -17,6 +17,7 @@
             left-icon="user-o"
             required
             label="用户名"
+            type="number"
             placeholder="请输入用户名"
           />
           <van-field
