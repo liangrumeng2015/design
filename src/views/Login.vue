@@ -64,7 +64,7 @@ export default {
           password,
           roleId:radioStatus
         };
-        const {msg,userName,userId,status} = await reqLogin(params);
+        const {msg,userName,userId,status,roleId} = await reqLogin(params);
         if(status == -1){
           that.$toast({
             message:msg
@@ -76,7 +76,7 @@ export default {
           setTimeout(()=>{
             that.$router.push({path:'/'})
           },DELAYTIME)
-          that.$cookie.set('userInfo',JSON.stringify({userId,userName}))
+          that.$cookie.set('userInfo',JSON.stringify({userId,userName,roleId}))
         }
       }else{
           if(password == ''){

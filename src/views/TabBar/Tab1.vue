@@ -3,7 +3,7 @@
     <!-- 搜索框 -->
     <v-Search />
     <!-- 轮播图 -->
-    <v-Swipe />
+    <v-Swipe :imgArr = "LBPICS" />
     <!-- 常用 -->
     <v-TitleBar leftMsg="常用" iconName="arrow" rightMsg=""  />
     <v-ThreeRowCard :CardData="CardData" :button="true" btnMsg="取消常用" />
@@ -18,11 +18,13 @@ import TitleBar from "../../components/TitleBar";
 import ThreeRowCard from "../../components/ThreeRowCard";
 import Search from '../../components/Search';
 import Swipe from '../../components/Swipe';
+import {LBPICS} from '../../config/constant'
 export default {
   data() {
     return {
       msg: "123",
       value: "",
+      LBPICS,
       CardData: [
         {
           imgsrc: "http://placehold.it/100",

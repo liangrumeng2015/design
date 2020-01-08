@@ -4,11 +4,12 @@
         <v-Avatar :bgImg="bgImg" :avatar="userAllInfo.sex == 1?imgBoy:imgGirl"  :title='APPNAME'/>
         <!-- 用户信息 -->
         <div class="userInfo">
-            <v-TitleBar leftIcon="smile-o" :leftMsg="userAllInfo.userName" iconName="arrow" rightMsg="" bgColor="#fff" />
-            <v-TitleBar leftIcon="thumb-circle-o" :leftMsg="userAllInfo.sex == 1?'男':'女'" iconName="arrow" rightMsg="" bgColor="#fff" />
-            <v-TitleBar leftIcon="label-o" :leftMsg="userAllInfo.stuNumber" iconName="arrow" rightMsg="" bgColor="#fff" />
-            <v-TitleBar leftIcon="bookmark-o" :leftMsg="userAllInfo.majorName" iconName="arrow" rightMsg="" bgColor="#fff" />
-            <v-TitleBar leftIcon="bookmark-o" :leftMsg="userAllInfo.className" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="smile-o" :leftMsg="'姓名：'+userAllInfo.userName" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="thumb-circle-o" :leftMsg="'性别：'+(userAllInfo.sex == 1?'男':'女')" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="label-o" :leftMsg="'学号：'+userAllInfo.stuNumber" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="bookmark-o" :leftMsg="'专业：'+userAllInfo.majorName" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="bookmark-o" :leftMsg="'班级：'+userAllInfo.className" iconName="arrow" rightMsg="" bgColor="#fff" />
+            <v-TitleBar leftIcon="bookmark-o" :leftMsg="'职位：'+(userAllInfo.roleId == 0?'学生':(userAllInfo.roleId == 1?'教师':'管理员'))" iconName="arrow" rightMsg="" bgColor="#fff" />
             <van-button type="primary" size="large" class="login_out" @click="toLoginOut">退出登录</van-button>
         </div>
     </div>

@@ -3,14 +3,12 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
-    redirect:'/tab1',
+    redirect: '/tab1',
     name: 'home',
     component: () => import('../views/Home.vue'),
-    children:[
-      {
+    children: [{
         path: '/tab1',
         name: 'tab1',
         component: () => import('../views/TabBar/Tab1.vue')
@@ -33,19 +31,34 @@ const routes = [
     ]
   },
   {
-    path:'/searchpage',
-    name:'searchpage',
-    component:()=>import('../views/SearchPage')
+    path: '/searchpage',
+    name: 'searchpage',
+    component: () => import('../views/SearchPage')
   },
   {
-    path:'/copy',
-    name:'copy',
-    component:()=>import('../views/pages/Copy')
+    path: '/logs',
+    name: 'logs',
+    component: () => import('../views/pages/Logs')
   },
   {
-    path:'/login',
-    name:'login',
-    component:()=>import('../views/Login')
+    path: '/teacherlesson',
+    name: 'teacherlesson',
+    component: () => import('../views/pages/TeacherLesson')
+  },
+  {
+    path: '/studentlesson',
+    name: 'studentlesson',
+    component: () => import('../views/pages/StudentLesson')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/pages/About')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login')
   }
 ]
 
@@ -58,6 +71,21 @@ const routerPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return routerPush.call(this, location).catch(error => error)
 }
+
+// 挂载路由导航守卫
+router.beforeEach((to, from, next) => {
+  console.log('挂载路由导航的', getCookie('userInfo'));
+  if(to.path == '/login') return next()
+  if(!getCookie('userInfo')) return next('/login')
+  next();
+
+  // 获取cookie的
+  function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
+  }
+})
+
 
 
 export default router
