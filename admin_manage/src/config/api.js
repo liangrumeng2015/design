@@ -83,3 +83,26 @@ export const reqFindMajorAll = (data) => Axios(httpURL + '/teachtool/major/findM
  * @params {majorId}
  */
 export const reqFindMajorById = (data) => Axios(httpURL + '/teachtool/major/findMajorById',data,'post');
+
+/**
+ * 所有专业信息查询
+ * 
+ */
+export const reqFindMajorInfoAll = (data) => Axios(httpURL + '/teachtool/major/findMajorInfoAll',data,'post');
+
+/**
+ * 所有班级信息
+ */
+export const reqFindClassAll = (data) => Axios(httpURL + '/teachtool/major/findClassAll',data,'post');
+
+/**
+ * 通过用户名查询课程信息
+ * username
+ */
+export const reqFindName = (data) =>Axios(httpURL + '/teachtool/findTeacherLessonsByUserName',data,'post');
+
+/**
+ * 查询个人课表
+ * @param {id} 用户标识，登录接口里面会返回
+ */
+export const reqFindLessonByUserId = (data) => Axios(httpURL + '/teachtool/lessonstable/findLessonsByUserId',data,'POST')

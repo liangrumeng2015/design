@@ -1,99 +1,38 @@
 <template>
-  <div class="class-table">
-    <div class="table-wrapper">
-      <div class="tabel-container">
-        <table>
-          <thead>
-            <tr>
-              <th>时间</th>
-              <th
-                v-for="(weekNum, weekIndex) in classTableData.courses.length"
-                :key="weekIndex"
-              >{{'周' + digital2Chinese(weekIndex, 'week')}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(lesson, lessonIndex) in classTableData.lessons" :key="lessonIndex">
-              <td>
-                <p>{{'第' + digital2Chinese(lessonIndex+1) + "节"}}</p>
-                <p class="period">{{ lesson }}</p>
-              </td>
-              <td
-                v-for="(course, courseIndex) in classTableData.courses"
-                :key="courseIndex"
-                @click="toCurrentLesson(course)"
-              >{{classTableData.courses[courseIndex][lessonIndex] || '-'}}----</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div>
+    <v-ClassTable :classTableData="classTableData"></v-ClassTable>
   </div>
 </template>
 
 <script>
+var that;
+import ClassTable from "../components/ClassTable";
+import {reqFindLessonByUserId} from '../config/api'
 export default {
   data() {
     return {
       classTableData: {
-        lessons: [
-          "08:00-09:00",
-          "09:00-10:00",
-          "10:00-11:00",
-          "11:00-12:00",
-          "13:00-14:00",
-          "14:00-15:00",
-          "15:00-16:00",
-          "16:00-17:00"
-        ],
-        courses: [
-          ["", "", "", "", "", "", "", ""],
-          ["生物", "物理", "化学", "政治", "历史", "英语", "", "语文"],
-          ["语文", "数学", "英语", "历史", "", "化学", "物理", "生物"],
-          ["生物", "", "化学", "政治", "历史", "英语", "数学", "语文"],
-          ["语文", "数学", "英语", "历史", "政治", "", "物理", "生物"],
-          ["生物", "物理", "化学", "", "历史", "英语", "数学", "语文"],
-          ["语文", "数学", "英语", "", "", "", "", ""]
-        ]
+        weeks: ["", "一", "二", "三", "四", "五", "六", "日"],
+        courses: []
       }
     };
   },
-  created() {
-    // /* mock随机数据*/
-    // Mock.mock({
-    //     lessons: ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00'],
-    //     'courses|7': [['生物', '物理', '化学', '政治', '历史', '英语', '', '语文']]
-    // });
+  mounted() {
+    let userId = JSON.parse(this.$cookie.get('userInfo')).userId
+    this.findLessonById(userId)
   },
-  methods: {
-    toCurrentLesson(item){
-        console.log(item);
-    },
-    /**
-     * 数字转中文
-     * @param {Number} num 需要转换的数字
-     * @param {String} identifier 标识符
-     * @returns {String} 转换后的中文
-     */
-    digital2Chinese(num, identifier) {
-      const character = [
-        "零",
-        "一",
-        "二",
-        "三",
-        "四",
-        "五",
-        "六",
-        "七",
-        "八",
-        "九",
-        "十",
-        "十一",
-        "十二"
-      ];
-      return identifier === "week" && (num === 0 || num === 7)
-        ? "日"
-        : character[num];
+  components: {
+    "v-ClassTable": ClassTable
+  },
+  methods:{
+    // 查询学生课表
+    async findLessonById(userId) {
+      that = this;
+      var params = {
+        userId
+      };
+      const { msg, status, info } = await reqFindLessonByUserId(params);
+      that.classTableData.courses = info;
     }
   }
 };

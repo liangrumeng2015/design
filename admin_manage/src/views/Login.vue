@@ -70,7 +70,7 @@ export default {
         if (!valid) {
           return
         }
-        const {msg,userName,status} = await reqLogin(that.loginForm)
+        const {msg,userName,status,userId,roleId} = await reqLogin(that.loginForm)
         if(status == -1)
             return that.$message({
                 message:msg,
@@ -83,6 +83,7 @@ export default {
                 type:'success'
             })
         that.$cookie.set('userName',userName);
+        that.$cookie.set('userInfo',JSON.stringify({userId,roleId}))
         setTimeout(()=>{
             that.$router.push('/');
         },DURATION)
