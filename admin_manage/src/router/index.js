@@ -24,6 +24,11 @@ const routes = [
         path: '/usermanagement',
         name: 'usermanagement',
         component: () =>import('../views/UserManagement.vue')
+      },
+      {
+        path: '/editor',
+        name: 'editor',
+        component: () =>import('../views/editor.vue')
       }
     ]
   },

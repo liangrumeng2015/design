@@ -27,6 +27,10 @@
             <i class="el-icon-setting"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>
+          <el-menu-item index="/editor">
+            <i class="el-icon-setting"></i>
+            <span slot="title">文章编辑</span>
+          </el-menu-item>
         </el-menu>
       </el-col>
     </el-row>
