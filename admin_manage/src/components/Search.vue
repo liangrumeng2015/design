@@ -1,8 +1,10 @@
 <template>
 <!--搜索组件 -->
   <div class="search_part">
-    <el-input v-model="inputVal" :placeholder="placeholder"></el-input>
+    <el-input v-model="inputVal" @input="watchInputVal" :placeholder="placeholder"></el-input>
     <el-button type="primary" @click="searchBtnFn">{{btnName}}</el-button>
+    <el-button type="info" @click="searchCancelBtnFn" v-if="cancelBtnName">{{cancelBtnName}}</el-button>
+
   </div>
 </template>
 <script>
@@ -10,12 +12,15 @@ export default {
   data() {
     return {
       msg: "",
-      inputVal: ""
+      inputVal: "",
     };
   },
   props: {
     btnName: {
       type: String
+    },
+    cancelBtnName:{
+      type:String
     },
     placeholder: {
       type: String,
@@ -25,6 +30,12 @@ export default {
   methods: {
     searchBtnFn() {
       this.$emit("searchBtnFn", this.inputVal);
+    },
+    searchCancelBtnFn(){
+      this.$emit('searchCancelBtnFn','');
+    },
+    watchInputVal(e){
+      this.$emit('watchInputVal',e)
     }
   }
 };

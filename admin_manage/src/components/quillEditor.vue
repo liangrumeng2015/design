@@ -9,7 +9,7 @@
       @focus="onEditorFocus($event)"
       @change="onEditorChange($event)"
     />
-    <el-button type="primary" @click="onEditorChange">保存</el-button>
+    <el-button type="primary" @click="onEditorChange">保存并更新</el-button>
     <el-button type="primary" @click="onCancel">取消</el-button>
   </div>
 </template>

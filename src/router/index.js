@@ -59,10 +59,17 @@ const routes = [{
     path: '/login',
     name: 'login',
     component: () => import('../views/Login')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/Test')
   }
 ]
 
 const router = new VueRouter({
+  // mode: 'history',
+  // base:'/myprojectname/',
   routes
 })
 

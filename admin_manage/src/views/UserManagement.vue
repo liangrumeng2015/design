@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-Search btnName="搜索" @searchBtnFn="searchBtnFn" placeholder="请输入要搜索的学号或者用户id" />
+    <v-Search 
+      btnName="搜索" 
+      @searchBtnFn="searchBtnFn" 
+      @watchInputVal="watchInputVal"
+      @searchCancelBtnFn = 'searchCancelBtnFn'
+      placeholder="请输入要搜索的学号或者姓名" />
+
     <el-button type="primary" style="margin-top:20px" @click="dialogFormVisible = true">添加用户</el-button>
     <!-- 添加、编辑 -->
     <el-dialog title="添加用户" :visible.sync="dialogFormVisible" style="width:80%" :close-on-click-modal=false>
@@ -16,7 +22,7 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
           <el-radio-group v-model="form.sex">
-            <el-radio  label="0">{{form.sex}}女</el-radio>
+            <el-radio  label="0">女</el-radio>
             <el-radio  label="1">男</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -105,25 +111,28 @@ import {
   reqFindClassAll,
   reqInsertUser,
   reqUpdateUser,
-  reqFindName
+  reqFindName,
+  reqFindUserByQuery
 } from "../config/api";
 import Search from "../components/Search";
 var that;
 export default {
   data() {
     return {
-      msg: "",
+      inputVal:'',
+      watchInput:'',  // 监听输入框里面的值
+      cancelBtnName: "",
       tableData: [],
       loading: true, // 加载
       form: {
         userName: "",
         stuNumber: "",
         password: "",
-        sex: "0",
+        sex: "1",
         roleId: "0",
         majorId: "",
         classId: "",
-        state: "0"
+        state: "1"
       },
       dialogFormVisible: false,
       formLabelWidth: "120px",
@@ -172,7 +181,6 @@ export default {
     // 查询所有专业  （没用）
     async toFindAllMajor() {
       const { msg, info, status } = await reqFindMajorAll();
-
     },
     // 添加用户
     toAddUserInfo() {
@@ -190,7 +198,7 @@ export default {
               })
               that.getUserAll();
               that.dialogFormVisible = false;
-              
+              that.$refs.loginFormRef.resetFields(); //  清空，下次可以继续添加
             }else{
               that.$message({
                 message:msg,
@@ -243,31 +251,54 @@ export default {
     async toEditorUser(val){
       that = this;
       console.log(val);
-      that.form = val;
+      const {userName,stuNumber,password,sex,roleId,state} = val;
+      that.form = {userName,stuNumber,password,sex,roleId,state}
       that.dialogFormVisible = true;
-      console.log(that.form)
-
+    },
+    watchInputVal(watchInputVal){
+      this.watchInput = watchInputVal;
     },
     // 搜索确定按钮
     searchBtnFn(inputVal) {
       console.log("搜索确定按钮", inputVal);
+      this.inputVal = inputVal;
       if (inputVal == "") {
         return this.$message({
           message: "搜索内容不能为空",
           duration: 1000
         });
       }
-      this.findByUserName(inputVal);
-      // this.findUserById(inputVal);  // 根据用户id查询
-
+      this.cancelBtnName = '取消搜索';
+      this.findUserByQuery(inputVal);  // 根据姓名和学号进行查询
+    },
+    // 取消搜索
+    searchCancelBtnFn(){
+        if(this.watchInput){
+          this.watchInput = '1234567'
+          this.inputVal = '123456'
+          this.cancelBtnName = '';
+          this.getUserAll();
+        }
     },
     // 根据用户名进行查询
-    async findByUserName (inputVal){
+    async findUserByQuery (inputVal){
       that = this;
-      var params = {
-        username:inputVal
+      var params;
+      console.log(Number(inputVal))
+      if(Number(inputVal)){   // 学号
+         params = {
+          stuNumber:inputVal
+        }
+      }else{   // 姓名
+        params = {
+          userName:inputVal
+        }
       }
-      const {msg,info,status} = await reqFindName(params);
+      const {msg,info,status} = await reqFindUserByQuery(params);
+      if (status == 1) {
+        that.loading = false;
+        that.tableData = info;
+      }
     },
     // 根据用户id进行查询
     async findUserById(userId) {
