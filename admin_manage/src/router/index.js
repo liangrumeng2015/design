@@ -29,6 +29,11 @@ const routes = [
         path: '/editor',
         name: 'editor',
         component: () =>import('../views/editor.vue')
+      },
+      {
+        path: '/articlelist',
+        name: 'articlelist',
+        component: () =>import('../views/ArticleList.vue')
       }
     ]
   },

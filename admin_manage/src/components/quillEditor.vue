@@ -9,8 +9,8 @@
       @focus="onEditorFocus($event)"
       @change="onEditorChange($event)"
     />
-    <el-button type="primary" @click="onEditorChange">保存并更新</el-button>
-    <el-button type="primary" @click="onCancel">取消</el-button>
+    <!-- <el-button type="primary" @click="onEditorChange">保存并更新</el-button>
+    <el-button type="primary" @click="onCancel">取消</el-button> -->
   </div>
 </template>
 <script>
@@ -39,20 +39,22 @@ export default {
   },
   methods: {
     onEditorReady(editor) {
-      console.log("onEditorReady", this.content);
+      // console.log("onEditorReady", this.content);
     },
     onEditorBlur() {
       // 失去焦点事件
       console.log("onEditorBlur", this.content);
+      this.$emit('editorContent',this.content)
+
     },
     onEditorFocus() {
       // 获得焦点事件
-      console.log("onEditorFocus", this.content);
+      // console.log("onEditorFocus", this.content);
     },
     onEditorChange() {
-      // 内容改变事件
-      console.log("onEditorChange", this.content);
-      this.$emit('editorContent',this.content)
+      // // 内容改变事件
+      // console.log("onEditorChange", this.content);
+      // this.$emit('editorContent',this.content)
     },
     // 取消
     onCancel(){

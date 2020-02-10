@@ -27,12 +27,15 @@ import {
     Radio,
     RadioGroup,
     Select,
-    Option
+    Option,
+    TimePicker,
+    DatePicker ,
+    Upload
   } from 'element-ui'
   
   Vue.use(Button).use(Form).use(FormItem).use(Input).use(Container).use(Header).use(Aside)
   .use(Main).use(Col).use(Row).use(Menu).use(MenuItemGroup).use(Submenu).use(Popconfirm)
   .use(Popover).use(MenuItem).use(Table).use(TableColumn).use(Loading).use(Switch).use(Dialog)
-  .use(Radio).use(Select).use(Option).use(RadioGroup)
+  .use(Radio).use(Select).use(Option).use(RadioGroup).use(TimePicker).use(DatePicker).use(Upload)
   Vue.prototype.$message = Message
   Vue.prototype.$confirm = MessageBox.confirm

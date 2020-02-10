@@ -106,3 +106,11 @@ export const reqFindName = (data) =>Axios(httpURL + '/teachtool/findTeacherLesso
  * @param {id} 用户标识，登录接口里面会返回
  */
 export const reqFindLessonByUserId = (data) => Axios(httpURL + '/teachtool/lessonstable/findLessonsByUserId',data,'POST')
+
+
+export const reqInsertArticle = (data) =>Axios(httpURL + '/teachtool/article/insertArticle',data,'POST')
+
+export const reqArticleAll = (data) =>Axios(httpURL + '/teachtool/article/articleAll',data,'POST')
+
+export const reqFindArtcleAById = (data) =>Axios(httpURL + '/article/findArtcleAById',data,'POST')
+
