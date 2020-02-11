@@ -114,3 +114,6 @@ export const reqArticleAll = (data) =>Axios(httpURL + '/teachtool/article/articl
 
 export const reqFindArtcleAById = (data) =>Axios(httpURL + '/article/findArtcleAById',data,'POST')
 
+export const reqUpdateArticle = (data) =>Axios(httpURL + '/article/updateArticle',data,'POST')
+
+

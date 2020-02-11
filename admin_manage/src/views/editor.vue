@@ -34,7 +34,7 @@
 </template>
 <script>
 import quillEditor from "../components/quillEditor";
-import {reqInsertArticle,reqFindArtcleAById} from '../config/api'
+import {reqInsertArticle,reqUpdateArticle,reqFindArtcleAById} from '../config/api'
 export default {
   data() {
     return {
@@ -46,27 +46,44 @@ export default {
         summary:'',
         creatTime:'',
       },
-      imageUrl: ''
+      imageUrl: '',
+      currentId:''
     };
   },
   components: {
     "v-quillEditor": quillEditor
   },
   mounted(){
-    console.log(this.$route.query)
+    if(this.$route.query){
+      const id = this.$route.query.id;
+      this.currentId = id
+      console.log(this.$route.query.id);
+      this.findArtcleAById(id)  // 编辑的
+    }
   },
   methods:{
       editorContent(data){
           console.log('得到的编辑里面的内容',data);
           this.form.mdTxt = data;
       },
-      // 添加文章  编辑文章
+      // 添加文章  + 编辑文章
       async toConfirm(){
         if(!this.$route.query){   // 添加文章
           const result = await reqInsertArticle({...this.form}); 
         }else{   // 修改文章
-
+          let params = {
+            id:parseInt(this.currentId),
+            ...this.form
+          }
+          console.log(params)
+          return;
+          const result  = await reqUpdateArticle(params);
         }
+      },
+      // 根据id查询文章内容
+      async findArtcleAById(id){
+        const result = await reqFindArtcleAById({id})
+
       },
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);

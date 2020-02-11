@@ -49,7 +49,8 @@ export default {
         },
         // 编辑
         toEditor(item){
-            this.$router.push({path:'/editor',query:{item}})
+          const {id} = {...item}
+          this.$router.push({path:'/editor',query:{id}})
         }
     }
 }
