@@ -3,7 +3,6 @@
  */
 import Axios from './axios'
 const httpURL = '/wypapi'
-
 /**登录接口
  * @param {stuNumber} 账号
  * @param {password} 密码 
@@ -116,4 +115,6 @@ export const reqFindArtcleAById = (data) =>Axios(httpURL + '/article/findArtcleA
 
 export const reqUpdateArticle = (data) =>Axios(httpURL + '/article/updateArticle',data,'POST')
 
+export const reqDeleteArticle = (data) =>Axios(httpURL + '/teachtool/article/deleteArticle',data,'post')
 
+export const reqUploadImgApi = '/teachtool/article/uploadimg'

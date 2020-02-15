@@ -6,7 +6,6 @@ import VueCookie from 'vue-cookie';
 import './config/elementUI'
 
 Vue.config.productionTip = false
-
 Vue.use(VueCookie);
 
 new Vue({

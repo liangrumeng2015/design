@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {reqArticleAll} from '../config/api'
+import {reqArticleAll,reqDeleteArticle} from '../config/api'
 export default {
     data(){
         return{
@@ -51,6 +51,22 @@ export default {
         toEditor(item){
           const {id} = {...item}
           this.$router.push({path:'/editor',query:{id}})
+        },
+        // 删除
+        async toDelUser({id}){
+          const {msg,status,info} = await reqDeleteArticle({id});
+          if(status == 1){
+            this.$message({
+              message: msg,
+              type: 'success'
+            });
+            this.getArticleAll();
+          }else{
+            this.$message({
+              message: msg,
+              type: 'error'
+            });
+          }
         }
     }
 }
