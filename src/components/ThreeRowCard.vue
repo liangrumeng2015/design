@@ -7,13 +7,13 @@
   @params  btnMsg  按钮上的文字
  -->
   <div>
-    <div class="card" v-for="(item,idx) in CardData" :key="idx">
+    <div class="card" v-for="(item,idx) in CardData" :key="idx" @click="toDetail(item)">
       <div class="card_left_img">
-        <img :src="item.imgsrc" />
+        <img :src="item.photo" />
       </div>
       <div class="card_center_txt">
-        <div class="txt_2">{{item.bigTxt}}</div>
-        <span>{{item.name}}</span>
+        <div class="txt_2">{{item.title}}</div>
+        <span>{{item.auhtor}}</span>
       </div>
       <div class="card_btn_icon" v-if="button">
         <button>{{btnMsg}}</button>
@@ -34,6 +34,11 @@ export default {
     },
     btnMsg:{
       type:String
+    }
+  },
+  methods:{
+    toDetail(item){
+      this.$emit('toDetail',item)
     }
   }
 };
@@ -62,7 +67,7 @@ export default {
   color: #313131;
 
   .txt_2 {
-    height: 40px;
+    max-height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -7,7 +7,7 @@
       @searchCancelBtnFn = 'searchCancelBtnFn'
       placeholder="请输入要搜索的学号或者姓名" />
 
-    <el-button type="primary" style="margin-top:20px" @click="dialogFormVisible = true">添加用户</el-button>
+    <el-button type="primary" style="margin-top:20px" @click="addUserBtn">添加用户</el-button>
     <!-- 添加、编辑 -->
     <el-dialog title="添加用户" :visible.sync="dialogFormVisible" style="width:80%" :close-on-click-modal=false>
       <el-form :model="form" ref="loginFormRef" :rules="loginFormRules" style="height:400px;overflow:scroll">
@@ -32,7 +32,7 @@
           <el-radio v-model="form.roleId" label="2">管理员</el-radio>
         </el-form-item>
         <el-form-item label="专业" prop="majorId" :label-width="formLabelWidth">
-          <el-select v-model="form.majorId" placeholder="请选择">
+          <el-select v-model="form.majorId" placeholder="请选择" @change="selectMajor">
             <el-option
               v-for="item in majorIdOptions"
               :key="item.majorId"
@@ -57,7 +57,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="toCancelBtn">取 消</el-button>
         <el-button type="primary" @click="toAddUserInfo">确 定</el-button>
       </div>
     </el-dialog>
@@ -172,11 +172,14 @@ export default {
     async getAllClassInfo(){
       that = this;
       const {msg,info,status } = await reqFindClassAll();
-      that.classIdOptions = info;
+      // that.classIdOptions = info;
     },
     // 根据majorId 查询班级
-    async toFindAllClass() {
-      const { msg, info, status } = await reqFindMajorById();
+    async toFindAllClass(majorId) {
+      const { msg, info, status } = await reqFindMajorById({majorId});
+      this.classIdOptions = info;
+      console.log('班级',this.classIdOptions);
+
     },
     // 查询所有专业  （没用）
     async toFindAllMajor() {
@@ -337,6 +340,31 @@ export default {
         that.loading = false;
         that.tableData = info;
       }
+    },
+    // 添加用户btn
+    addUserBtn(){
+      that = this;
+      that.dialogFormVisible = true;
+      that.form = {
+        userName: "",
+        stuNumber: "",
+        password: "",
+        sex: "1",
+        roleId: "0",
+        majorId: "",
+        classId: "",
+        state: "1"
+      }
+    },
+    toCancelBtn(){
+      that.dialogFormVisible = false;
+      that.$refs.loginFormRef.clearValidate()
+      that.$refs.loginFormRef.resetFields();
+    },
+    // 选择的哪个专业值
+    selectMajor(e){   
+      const majorId = e;
+      this.toFindAllClass(majorId)
     }
   }
 };

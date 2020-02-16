@@ -34,7 +34,13 @@ const routes = [
         path: '/articlelist',
         name: 'articlelist',
         component: () =>import('../views/ArticleList.vue')
+      },
+      {
+        path: '/addtimetable',
+        name: 'addtimetable',
+        component: () =>import('../views/AddTimeTable.vue')
       }
+
     ]
   },
   

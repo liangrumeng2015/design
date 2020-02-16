@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-input placeholder="请输入文章标题" v-model="form.title" /><br/><br/>
-    <v-quillEditor v-on:editorContent="editorContent" />
+    <v-quillEditor v-on:editorContent="editorContent" v-if="form.htmlcontent && currentId" :htmlcontent="form.htmlcontent" />
+    <v-quillEditor v-on:editorContent="editorContent" v-if="!currentId" />
+    
     <div style="width:50%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="文章作者">
@@ -11,8 +13,8 @@
           <el-input type="textarea" v-model="form.summary"></el-input>
         </el-form-item>
         <el-form-item label="发布时间">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.ctreatTime" style="width: 100%;" format="yyyy 年 MM 月 dd 日"
-      value-format="yyyy-MM-dd"></el-date-picker>
+          <el-date-picker type="date" placeholder="选择日期" default-value v-model="form.ctreatTime" style="width: 100%;" format="yyyy 年 MM 月 dd 日"
+      value-format="yyyy/MM/dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="封面图">
           <el-upload
@@ -36,7 +38,7 @@
 <script>
 var that;
 import quillEditor from "../components/quillEditor";
-import {messageTip} from '../config/tools'
+import {messageTip,loadingTip} from '../config/tools'
 import {reqInsertArticle,reqUpdateArticle,reqFindArtcleAById,reqUploadImgApi} from '../config/api'
 export default {
   data() {
@@ -44,7 +46,7 @@ export default {
       msg: "",
       reqUploadImgApi,
       form:{
-        mdTxt:'',
+        htmlcontent:'',
         title:'',
         auhtor:'',
         summary:'',
@@ -62,25 +64,23 @@ export default {
     if(this.$route.query.id){   // 编辑的
       const id = this.$route.query.id;
       this.currentId = id
-      console.log(this.$route.query);
       this.findArtcleAById(id)  
     }
     
   },
   methods:{
       editorContent(data){
-          console.log('得到的编辑里面的内容',data);
-          this.form.mdTxt = data;
+          this.form.htmlcontent = data;
       },
       // 添加文章  + 编辑文章
       async toConfirm(){
         that = this;
-        const {mdTxt,title,auhtor,summary,ctreatTime} = this.form;
+        const {htmlcontent,title,auhtor,summary,ctreatTime} = this.form;
         if(title == ''){
           messageTip('error','请输入文章标题')
           return;
         }
-        if(mdTxt == ''){
+        if(htmlcontent == ''){
           messageTip('error','请输入文章内容')
           return;
         }
@@ -115,15 +115,23 @@ export default {
             id:parseInt(that.currentId),
             ...that.form
           }
-          console.log(params)
-          return;
-          const result  = await reqUpdateArticle(params);
+          let loadingStatue = loadingTip(true,'加载中')
+          const {status,msg,info}  = await reqUpdateArticle(params);
+          if(status == 1){
+            messageTip('success',msg)
+            loadingStatue.close()
+            that.$router.push({path:'/articlelist'})
+          }else{
+            messageTip('error',msg)
+          }
         }
       },
-
       // 根据id查询文章内容
       async findArtcleAById(id){
-        const result = await reqFindArtcleAById({id})
+        const {msg,status,info} = await reqFindArtcleAById({id})
+        if(status == 1){
+          this.form = info
+        }
       },
       handleAvatarSuccess(res, file) {
         this.photo = URL.createObjectURL(file.raw);

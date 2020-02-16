@@ -111,10 +111,14 @@ export const reqInsertArticle = (data) =>Axios(httpURL + '/teachtool/article/ins
 
 export const reqArticleAll = (data) =>Axios(httpURL + '/teachtool/article/articleAll',data,'POST')
 
-export const reqFindArtcleAById = (data) =>Axios(httpURL + '/article/findArtcleAById',data,'POST')
+export const reqFindArtcleAById = (data) =>Axios(httpURL + '/teachtool/article/findArtcleAById',data,'POST')
 
-export const reqUpdateArticle = (data) =>Axios(httpURL + '/article/updateArticle',data,'POST')
+export const reqUpdateArticle = (data) =>Axios(httpURL + '/teachtool/article/updateArticle',data,'POST')
 
 export const reqDeleteArticle = (data) =>Axios(httpURL + '/teachtool/article/deleteArticle',data,'post')
 
 export const reqUploadImgApi = '/teachtool/article/uploadimg'
+
+export const reqInsertLessons = (data) =>Axios(httpURL + '/teachtool/lessonstable/insertLessons',data,'post')
+
+export const reqFindLessonsAll = (data) =>Axios(httpURL + '/teachtool/lessonstable/findLessonsAll',data,'post')

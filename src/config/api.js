@@ -36,4 +36,6 @@ export const reqFindLessonByUserId = (data) => Axios(httpURL + '/teachtool/lesso
  */
 export const reqFindTeacherLesson = (data) =>Axios(httpURL + '/teachtool/lessonstable/findTeacherLessonsByUserName',data,'POST');
 
+export const reqArticleList = (data) =>Axios(httpURL + '/teachtool/article/articleAll',data,'post')
 
+export const reqArticleById = (data) =>Axios(httpURL + '/teachtool/article/findArtcleAById',data,'post')

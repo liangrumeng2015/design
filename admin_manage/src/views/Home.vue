@@ -2,7 +2,7 @@
   <div class="home">
     <el-container class="container">
       <el-header>
-        <v-YHeader :title="ADMNIN_MANAGE_NAME" :logo="LOGO" username="张三" @toConfirm="toConfirm" @toCancel="toCancel" />
+        <v-YHeader :title="ADMNIN_MANAGE_NAME" :logo="LOGO" :username="username" @toConfirm="toConfirm" @toCancel="toCancel" />
       </el-header>
       <el-container>
         <el-aside width="200px">
@@ -27,7 +27,7 @@ export default {
       msg: "",
       ADMNIN_MANAGE_NAME,
       LOGO,
-      
+      username:''
     };
   },
   components: {
@@ -35,8 +35,11 @@ export default {
     "v-YLeftNav":YLeftNav
   },
   created() {
+    console.log(this.$cookie.get("userName"))
     if (!this.$cookie.get("userName")) {
       this.$router.push({ path: "/login" });
+    }else{
+      this.username = this.$cookie.get('userName')
     }
   },
   methods:{

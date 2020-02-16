@@ -26,11 +26,16 @@ export default {
       editorOption: {}
     };
   },
+  props:{
+    htmlcontent:String
+  },
   components: {
     quillEditor
   },
   mounted() {
-    console.log(this.content);
+    if(this.htmlcontent){
+      this.content = this.htmlcontent
+    }
   },
   computed: {
     editor() {
@@ -43,8 +48,7 @@ export default {
     },
     onEditorBlur() {
       // 失去焦点事件
-      console.log("onEditorBlur", this.content);
-      this.$emit('editorContent',this.content)
+      // console.log("onEditorBlur", this.content);
 
     },
     onEditorFocus() {
@@ -53,8 +57,8 @@ export default {
     },
     onEditorChange() {
       // // 内容改变事件
-      // console.log("onEditorChange", this.content);
-      // this.$emit('editorContent',this.content)
+      console.log("onEditorChange", this.content);
+      this.$emit('editorContent',this.content)
     },
     // 取消
     onCancel(){

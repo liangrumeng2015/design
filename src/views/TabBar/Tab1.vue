@@ -5,8 +5,8 @@
     <!-- 轮播图 -->
     <v-Swipe :imgArr = "LBPICS" />
     <!-- 常用 -->
-    <v-TitleBar leftMsg="常用" iconName="arrow" rightMsg=""  />
-    <v-ThreeRowCard :CardData="CardData" :button="true" btnMsg="取消常用" />
+    <v-TitleBar leftMsg="常用" iconName="" rightMsg=""  />
+    <v-ThreeRowCard :CardData="CardData" @toDetail="toDetail" />
     <!-- 推荐 -->
     <v-TitleBar leftMsg="推荐" iconName="exchange" rightMsg="换一换" />
     <v-ThreeRowCard :CardData="CardData" :button="true" btnMsg="+常用"/>
@@ -19,19 +19,14 @@ import ThreeRowCard from "../../components/ThreeRowCard";
 import Search from '../../components/Search';
 import Swipe from '../../components/Swipe';
 import {LBPICS} from '../../config/constant'
+import {reqArticleList} from '../../config/api'
 export default {
   data() {
     return {
       msg: "123",
       value: "",
       LBPICS,
-      CardData: [
-        {
-          imgsrc: "http://placehold.it/100",
-          bigTxt: "莎士比亚十四行诗，莎士比亚十四行诗莎士比亚十四行诗",
-          name: "郭沫若"
-        }
-      ]
+      CardData: []
     };
   },
   components: {
@@ -46,12 +41,24 @@ export default {
     }else{
       console.log(JSON.parse(this.$cookie.get('userInfo')));
     }
+    this.reqArticleList();
   },
   methods: {
     focusFn() {
       setTimeout(() => {
         this.$router.push("/searchpage");
       }, 150);
+    },
+    async reqArticleList(){
+      const {msg,state,articles} = await reqArticleList();
+      if(state == 1){
+        this.CardData = articles
+      }
+    },
+    toDetail(item){
+      let {id} = item
+      console.log('llllll',item)
+      this.$router.push({path:'/articledetail',query:{id}})
     }
   }
 };
