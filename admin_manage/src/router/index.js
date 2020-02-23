@@ -16,6 +16,11 @@ const routes = [
         component: () => import('../views/Grade.vue')
       },
       {
+        path: '/addgrade',
+        name: 'addgrade',
+        component: () => import('../views/addGrade.vue')
+      },
+      {
         path: '/timetable',
         name: 'timetable',
         component: () => import('../views/TimeTable.vue')

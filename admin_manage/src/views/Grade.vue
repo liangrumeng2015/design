@@ -1,17 +1,5 @@
 <template>
   <div class="about">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="活动名称">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
-      <el-form-item label="活动区域">
-        <el-select v-model="form.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
-
     <el-table
       :data="tableData1"
       :span-method="objectSpanMethod"
@@ -23,7 +11,7 @@
       <el-table-column prop="majorName" label="班级" width="180"></el-table-column>
       <el-table-column prop="amount1" label="编辑" width="120">
         <template slot-scope="scope">
-          <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="primary">编辑</el-button>
+          <el-button @click.native.prevent="deleteRow(scope.$index, tableData1)" type="primary">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,21 +25,9 @@ export default {
     return {
       msg: "",
       form:{
-name:'',
-region:''
+        name:'',
+        region:''
       },
-      tableData: [
-        {
-          majorId: "12987122",
-          majorName: "王张三",
-          amount1: "ee"
-        },
-        {
-          majorId: "12987123",
-          majorName: "王李四",
-          amount1: "165"
-        }
-      ],
       tableData1: "",
       majorArr: [],
       gradeArr: []
@@ -61,6 +37,12 @@ region:''
     this.getMajorInfo();
   },
   methods: {
+    // 编辑按钮
+    deleteRow(idx,arr){
+      console.log('编辑',idx,arr)
+      const {parentId,majorId} = arr[idx]
+      this.$router.push({name:'addgrade',query:{parentId,majorId}})
+    },
     // 所有专业
     async getMajorInfo() {
       const { msg, info, status } = await reqFindMajorInfoAll();

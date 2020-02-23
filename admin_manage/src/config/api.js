@@ -117,8 +117,14 @@ export const reqUpdateArticle = (data) =>Axios(httpURL + '/teachtool/article/upd
 
 export const reqDeleteArticle = (data) =>Axios(httpURL + '/teachtool/article/deleteArticle',data,'post')
 
-export const reqUploadImgApi = '/teachtool/article/uploadimg'
+export const reqUploadImgApi = httpURL + '/teachtool/article/uploadimg'
 
 export const reqInsertLessons = (data) =>Axios(httpURL + '/teachtool/lessonstable/insertLessons',data,'post')
 
 export const reqFindLessonsAll = (data) =>Axios(httpURL + '/teachtool/lessonstable/findLessonsAll',data,'post')
+
+export const reqFindLessonsById = (data) =>Axios(httpURL + '/teachtool/lessonstable/findLessonsById',data,'post')
+
+export const reqInsertMajor = (data) =>Axios(httpURL + '/teachtool/major/insertMajor',data,'post')
+
+export const reqUpdateMajorById = (data) =>Axios(httpURL + '/teachtool/major/updateMajorrById',data,'post');

@@ -16,10 +16,28 @@
             <span slot="title">首页</span>
           </el-menu-item>
 
-          <el-menu-item index="/grade">
-            <i class="el-icon-menu"></i>
-            <span slot="title">专业及班级管理</span>
+<el-menu-item index="/usermanagement">
+            <i class="el-icon-setting"></i>
+            <span slot="title">用户管理</span>
           </el-menu-item>
+
+          <el-submenu index="/grade">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>专业/班级管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/grade">
+                <i class="el-icon-menu"></i>
+                <span slot="title">班级列表</span>
+              </el-menu-item>
+              <el-menu-item index="/addgrade">
+                <i class="el-icon-menu"></i>
+                <span slot="title">增加/编辑班级</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>          
+          
 
           <el-submenu index="/timetable">
             <template slot="title">
@@ -37,10 +55,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="/usermanagement">
-            <i class="el-icon-setting"></i>
-            <span slot="title">用户管理</span>
-          </el-menu-item>
+          
           <el-submenu index="/articlelist">
             <template slot="title">
               <i class="el-icon-location"></i>

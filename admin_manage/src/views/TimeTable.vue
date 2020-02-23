@@ -1,5 +1,12 @@
 <template>
   <div>
+    <el-form ref="form" :model="form" label-width="80px">
+      <el-form-item label="班级名称">
+        <el-select v-model="form.grade" placeholder="请选择班级" @change="selectGrade">
+          <el-option v-for="(item,idx) in classIdOptions" :key="idx" :label="item.majorName" :value="item.majorId"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
     <v-ClassTable :classTableData="classTableData"></v-ClassTable>
   </div>
 </template>
@@ -7,10 +14,14 @@
 <script>
 var that;
 import ClassTable from "../components/ClassTable";
-import {reqFindLessonByUserId} from '../config/api'
+import { reqFindLessonsById,reqFindClassAll } from "../config/api";
 export default {
   data() {
     return {
+      form:{
+        grade:''
+      },
+      classIdOptions:[],
       classTableData: {
         weeks: ["", "一", "二", "三", "四", "五", "六", "日"],
         courses: []
@@ -18,21 +29,31 @@ export default {
     };
   },
   mounted() {
-    let userId = JSON.parse(this.$cookie.get('userInfo')).userId
-    this.findLessonById(userId)
+    // let userId = JSON.parse(this.$cookie.get("userInfo")).userId;
+    this.getAllClassInfo()
   },
   components: {
     "v-ClassTable": ClassTable
   },
-  methods:{
+  methods: {
     // 查询学生课表
-    async findLessonById(userId) {
+    async findLessonById(classId) {
       that = this;
       var params = {
-        userId
+        classId
       };
-      const { msg, status, info } = await reqFindLessonByUserId(params);
+      const { msg, status, info } = await reqFindLessonsById(params);
       that.classTableData.courses = info;
+    },
+    // 所有班级
+     async getAllClassInfo(){
+      that = this;
+      const {msg,info,status } = await reqFindClassAll();
+      that.classIdOptions = info;
+    },
+    selectGrade(val){
+      console.log(val)
+      this.findLessonById(val)
     }
   }
 };

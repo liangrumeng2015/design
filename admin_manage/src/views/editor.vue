@@ -32,7 +32,7 @@
     </div>
     <el-button type="primary" @click="toConfirm">确定</el-button>
     <el-button type="info">取消</el-button>
-    
+
   </div>
 </template>
 <script>
@@ -96,10 +96,10 @@ export default {
           messageTip('error','请选择文章发布时间')
           return;
         }
-        // if(photo == ''){
-        //   messageTip('error','请上传文章封面')
-        //   return;
-        // }
+        if(photo == ''){
+          messageTip('error','请上传文章封面')
+          return;
+        }
 
         if(!that.$route.query.id){   // 添加文章
           console.log(that.form);
@@ -136,6 +136,9 @@ export default {
       handleAvatarSuccess(res, file) {
         this.photo = URL.createObjectURL(file.raw);
         console.log(res)
+        if(res.status == '1'){   // 上传成功
+            this.form.photo = res.msg
+        }
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -152,6 +155,8 @@ export default {
 
   }
 };
+
+
 </script>
 <style>
   .avatar-uploader .el-upload {
