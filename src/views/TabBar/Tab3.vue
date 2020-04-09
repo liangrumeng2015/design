@@ -34,7 +34,7 @@ export default {
         } else {
           Toast({
             message: "您没有权限查看该课表",
-            position: "top"
+            position: "center"
           });
         }
       } else if (data.item.path == "/studentlesson") {
@@ -49,6 +49,19 @@ export default {
       } else if (data.item.path == "/about") {
         // 关于页面
         this.$router.push({path:'/about'})
+      } else if(data.item.path == '/lesson'){
+        Toast({
+          message: "正在努力开发中...",
+          position: "center"
+        });
+      }else if(data.item.path == '/help'){   // 帮助(技术支持)
+        this.$router.push({path:'/help'})
+      }else if(data.item.path == '/copy'){  // 版权
+        this.$router.push({path:'/copy'})
+      }else if(data.item.path == '/question'){  // 问答
+        this.$router.push({path:'/question'})
+      }else if(data.item.path == '/suggest'){  // 意见反馈
+        this.$router.push({path:'/suggest'});
       }
     }
   }

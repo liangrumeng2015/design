@@ -41,6 +41,26 @@ const routes = [{
     component: () => import('../views/pages/Logs')
   },
   {
+    path: '/question',
+    name: 'question',
+    component: () => import('../views/pages/Question')
+  },
+  {
+    path: '/suggest',
+    name: 'suggest',
+    component: () => import('../views/pages/Suggest')
+  },
+  {
+    path: '/copy',
+    name: 'copy',
+    component: () => import('../views/pages/Copy')
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('../views/pages/Help')
+  },
+  {
     path: '/teacherlesson',
     name: 'teacherlesson',
     component: () => import('../views/pages/TeacherLesson')

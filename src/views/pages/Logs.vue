@@ -1,16 +1,10 @@
 <template>
   <div>
-    <van-steps direction="vertical" :active="1">
-      <van-step>
+    <van-steps direction="vertical" :active='0' style="padding-bottom:10px">
+      <van-step v-for="(item,idx) in logsData" :key="idx">
         <div class="step">
-          <h3>2019/10/06</h3>
-          <p>v 1.0版本上线</p>
-        </div>
-      </van-step>
-      <van-step>
-        <div class="step">
-          <h3>2019/11/06</h3>
-          <p>v 1.0版本上线</p>
+          <h3 v-html="item.time"></h3>
+          <p>{{item.content}}</p>
         </div>
       </van-step>
       <van-step></van-step>
@@ -18,11 +12,13 @@
   </div>
 </template>
 <script>
+import {logsData} from '../../config/constant'
 export default {
   data() {
     return {
       msg: "",
-      active: 0
+      active: 0,
+      logsData
     };
   }
 };
